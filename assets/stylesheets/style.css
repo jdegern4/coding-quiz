@@ -1,0 +1,67 @@
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    font-size: 62.5%;
+    --primary: #B96AC9;
+    --secondary: #E980FC;
+    --tertiary: #FFD2FC;
+    --quaternary: #231B1B;
+}
+
+body {
+    background-color: var(--tertiary);
+    margin: 0;
+    padding: 0;
+    display: flex;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+h1 {
+    font-size: 5.4rem;
+    color: var(quaternary);
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 80rem;
+    margin: 0 auto;
+}
+
+#title-screen {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+#title-screen button {
+    margin: 30px;
+}
+
+#high-scores {
+    margin-top: 30px;
+    font-size: 1.9rem;
+}
+
+.question-box {
+    display: flex;
+    width: 100%;
+    font-size: 2.0rem;
+}
+
+.question {
+
+}
+
+
+
+
+.hidden {
+    display: none;
+}
