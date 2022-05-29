@@ -1,9 +1,9 @@
-const question = document.getElementById("question");
 const quizStartButton = document.getElementById("start-quiz");
 var timer = 60;
 var score = 100;
 var questionNumber = 0;
 var questionSequence = [];
+const choices = Array.from(document.getElementsByClassName('answer-box'));
 
 var questions = [
     {
@@ -53,14 +53,52 @@ var questions = [
 ]
 
 
-var startQuiz = function() {
+var startQuiz = function () {
+    quizStartButton.hidden = true;
     questionSequence = [...questions];
-    console.log(questionSequence);
-    nextQuestion();
+    newQuestion();
 }
 
-var nextQuestion = function() {
+var newQuestion = function () {
+    // LOAD CURRENT QUESTION
+    var currentQuestion = questions[questionNumber];
+    var questionField = document.getElementById("question-box");
+    questionField.innerText = currentQuestion.question;
+    console.log(currentQuestion);
+
+    // LOAD CURRENT QUESTION'S CHOICES
+    var choice1 = document.getElementById("answer-box-1");
+    var choice2 = document.getElementById("answer-box-2");
+    var choice3 = document.getElementById("answer-box-3");
+    var choice4 = document.getElementById("answer-box-4");
+    choice1.innerHTML = currentQuestion.ans1;
+    choice2.innerHTML = currentQuestion.ans2;
+    choice3.innerHTML = currentQuestion.ans3;
+    choice4.innerHTML = currentQuestion.ans4;
+
+    var correctAnswer = currentQuestion.correct;
+
+    // DETECT THAT AN ANSWER HAS BEEN SELECTED
+    var selectedAnswer = document.querySelectorAll('.answer-box');
+    selectedAnswer.forEach(function (select) {
+        select.addEventListener('click', checkAnswer()) {
+            checkAnswer();
+        }
+    }
+};
+
+
+function checkAnswer() {
+    console.log("Time to check the answer!");
+
+}
+
+// UPON CORRECT ANSWER AND CORRECT ALERT, LOAD NEXT QUESTION
+// nextQuestion();
+
+var nextQuestion = function () {
     questionNumber++;
+    console.log(questionNumber);
 }
 
 quizStartButton.addEventListener("click", startQuiz);

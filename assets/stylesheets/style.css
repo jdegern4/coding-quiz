@@ -45,25 +45,34 @@ h1 {
 }
 
 #high-scores {
-    margin-top: 30px;
-    font-size: 1.9rem;
+    position: fixed;
+    top: 35px;
+    font-size: 2.5rem;
 }
 
-.question-box {
+#question-box {
     display: flex;
     width: 100%;
     font-size: 2.0rem;
 }
 
-.question {
+.answer-box {
+    display: flex;
+    width: 100%;
+    font-size: 1.6rem;
+    justify-content: center;
+    border: groove;
+}
 
+.answer-box:hover {
+    opacity: 80%;
+    cursor: pointer;
+}
+
+.question {
+/* PROPERTIES FOR DYNAMIC QUESTION ELEMENT?? */
 }
 
 .choices {
-    
-}
-
-
-.hidden {
-    display: none;
+  /* PROPERTIES FOR DYNAMIC CHOICE ELEMENTS?? */  
 }
