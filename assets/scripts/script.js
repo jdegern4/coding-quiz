@@ -1,7 +1,8 @@
 const quizStartButton = document.getElementById("start-quiz");
 var time = 60;
 var timer = document.getElementById("time-remaining");
-var score = 100;
+timer.innerHTML = time;
+var score = "";
 var questionNumber = 0;
 var questionSequence = [];
 const choices = Array.from(document.getElementsByClassName('answer-box'));
@@ -56,6 +57,7 @@ var questions = [
 
 var startQuiz = function () {
     quizStartButton.hidden = true;
+    timerCountdown();
     questionSequence = [...questions];
     if (questionNumber > 4) {
         endQuiz();
@@ -80,27 +82,28 @@ var newQuestion = function () {
     choice2.textContent = currentQuestion.ans2;
     choice3.textContent = currentQuestion.ans3;
     choice4.textContent = currentQuestion.ans4;
-
+    //debugger;
     var correctAnswer = currentQuestion.correct;
     var selectedAnswer = 0;
     // DETECT THAT AN ANSWER HAS BEEN SELECTED
     var answers = document.querySelectorAll('.answer-box');
     answers.forEach(function (select) {
         select.addEventListener('click', (e) => {
+            //debugger;
             selectedAnswer = event.target.getAttribute("data-number");
-            console.log(selectedAnswer, currentQuestion["correct"]);
-            checkAnswer();
+            console.log(selectedAnswer, correctAnswer);
+            checkAnswer(correctAnswer);
         });
     });
 
     function checkAnswer() {
         // ALERT WRONG ANSWER AND DEDUCT TIME FROM TIMER
-        if (selectedAnswer !== currentQuestion["correct"]) {
+        if (selectedAnswer != correctAnswer) {
             window.alert("Incorrect. Try again!");
             time = time - 5;
             return;
             // OTHERWISE, IF CORRECT ANSWER SELECTED, ADD POINTS AND ALERT
-        } else if (selectedAnswer == currentQuestion["correct"]) {
+        } else if (selectedAnswer === correctAnswer) {
             window.alert("Correct!");
             // ADD POINTS
             nextQuestion();
@@ -113,17 +116,23 @@ var newQuestion = function () {
 // nextQuestion();
 
 var nextQuestion = function () {
-    ++questionNumber;
+    //debugger;
+    questionNumber++;
     console.log("Next question: ", questionNumber);
     newQuestion();
 }
 
-function timer() {
-
+function timerCountdown() {
+setInterval(secondDecrease, 1000);
+function secondDecrease() {
+time--;
+console.log(time);
+}
 }
 
 function endQuiz() {
-
+score = time;
+clearInterval(secondDecrease);
 }
 
 quizStartButton.addEventListener("click", startQuiz);
