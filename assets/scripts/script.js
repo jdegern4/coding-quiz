@@ -57,7 +57,11 @@ var questions = [
 var startQuiz = function () {
     quizStartButton.hidden = true;
     questionSequence = [...questions];
-    newQuestion();
+    if (questionNumber > 4) {
+        endQuiz();
+    } else {
+        newQuestion();
+    }
 }
 
 var newQuestion = function () {
@@ -84,36 +88,41 @@ var newQuestion = function () {
     answers.forEach(function (select) {
         select.addEventListener('click', (e) => {
             selectedAnswer = event.target.getAttribute("data-number");
-            console.log(selectedAnswer);
+            console.log(selectedAnswer, currentQuestion["correct"]);
             checkAnswer();
         });
     });
 
     function checkAnswer() {
-        console.log("Time to check the answer!");
         // ALERT WRONG ANSWER AND DEDUCT TIME FROM TIMER
         if (selectedAnswer !== currentQuestion["correct"]) {
             window.alert("Incorrect. Try again!");
             time = time - 5;
             return;
+            // OTHERWISE, IF CORRECT ANSWER SELECTED, ADD POINTS AND ALERT
         } else if (selectedAnswer == currentQuestion["correct"]) {
             window.alert("Correct!");
             // ADD POINTS
             nextQuestion();
         }
 
-        // OTHERWISE, IF CORRECT ANSWER SELECTED, ADD POINTS AND ALERT
+
     };
 }
 // UPON CORRECT ANSWER AND CORRECT ALERT, LOAD NEXT QUESTION
 // nextQuestion();
 
 var nextQuestion = function () {
-    questionNumber++;
+    ++questionNumber;
     console.log(questionNumber);
+    newQuestion();
 }
 
 function timer() {
+
+}
+
+function endQuiz() {
 
 }
 
