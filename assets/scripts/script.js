@@ -10,47 +10,32 @@ const choices = Array.from(document.getElementsByClassName('answer-box'));
 var questions = [
     {
         question: "In the context of web APIs, what does DOM stand for?",
-        ans1: "Darkest Ominous Malevolence",
-        ans2: "Dominant Octopus Minds",
-        ans3: "Document Operator Model",
-        ans4: "Document Object Model",
-        correct: "4"
+        answers: ["Darkest Ominous Malevolence", "Dominant Octopus Minds", "Document Operator Model", "Document Object Model"],
+        correct: "Document Object Model"
     },
 
     {
         question: "Where should a CSS file be referenced in an HTML file?",
-        ans1: "Before any HTML code",
-        ans2: "After any HTML code",
-        ans3: "Inside the head section",
-        ans4: "Inside the body section",
-        correct: "3"
+        answers: ["Before any HTML code", "After any HTML code", "Inside the head section", "Inside the body section"],
+        correct: "Inside the head section"
     },
 
     {
         question: "What is the correct HTML element for inserting a line break?",
-        ans1: "<br>",
-        ans2: "<break>",
-        ans3: "<brk>",
-        ans4: "<linebreak>",
-        correct: "1"
+        answers: ["<br>", "<break>", "<brk>", "<linebreak>"],
+        correct: "<br>"
     },
 
     {
         question: "How do you display hyperlinks without an underline?",
-        ans1: "a {text-decoration:none;}",
-        ans2: "a {underline:none;}",
-        ans3: "a {text-decoration:no-underline;}",
-        ans4: "a {decoration:no-underline;}",
-        correct: "1"
+        answers: ["a {text-decoration:none;}", "a {underline:none;}", "a {text-decoration:no-underline;}", "a {decoration:no-underline;}"],
+        correct: "a {text-decoration:none;}"
     },
 
     {
         question: "What is the correct syntax for a JavaScript array?",
-        ans1: "var flavors = 1(vanilla), 2(chocolate), 3(strawberry)",
-        ans2: "var flavors = ['vanilla', 'chocolate', 'strawberry']",
-        ans3: "var flavors = (1:'vanilla', 2:'chocolate', 3:'strawberry')",
-        ans4: "var flavors = 'vanilla', 'chocolate', 'strawberry'",
-        correct: "2"
+        answers: ["var flavors = 1(vanilla), 2(chocolate), 3(strawberry)", "var flavors = ['vanilla', 'chocolate', 'strawberry']", "var flavors = (1:'vanilla', 2:'chocolate', 3:'strawberry')", "var flavors = 'vanilla', 'chocolate', 'strawberry'"],
+        correct: "var flavors = ['vanilla', 'chocolate', 'strawberry']"
     }
 ]
 
@@ -59,7 +44,7 @@ var startQuiz = function () {
     quizStartButton.hidden = true;
     timerCountdown();
     questionSequence = [...questions];
-    if (questionNumber > 4) {
+    if (questionNumber > 4 || time < 1) {
         endQuiz();
     } else {
         newQuestion();
@@ -67,6 +52,7 @@ var startQuiz = function () {
 }
 
 var newQuestion = function () {
+    // CLEAR QUESTION AND ANSWERS
     // LOAD CURRENT QUESTION
     var currentQuestion = questions[questionNumber];
     var questionField = document.getElementById("question-box");
@@ -78,11 +64,10 @@ var newQuestion = function () {
     var choice2 = document.getElementById("answer-box-2");
     var choice3 = document.getElementById("answer-box-3");
     var choice4 = document.getElementById("answer-box-4");
-    choice1.textContent = currentQuestion.ans1;
-    choice2.textContent = currentQuestion.ans2;
-    choice3.textContent = currentQuestion.ans3;
-    choice4.textContent = currentQuestion.ans4;
-    //debugger;
+    choice1.textContent = currentQuestion.answers[0];
+    choice2.textContent = currentQuestion.answers[1];
+    choice3.textContent = currentQuestion.answers[2];
+    choice4.textContent = currentQuestion.answers[3];
     var correctAnswer = currentQuestion.correct;
     var selectedAnswer = 0;
     // DETECT THAT AN ANSWER HAS BEEN SELECTED
@@ -90,7 +75,7 @@ var newQuestion = function () {
     answers.forEach(function (select) {
         select.addEventListener('click', (e) => {
             //debugger;
-            selectedAnswer = event.target.getAttribute("data-number");
+            selectedAnswer = event.target.innerText;
             console.log(selectedAnswer, correctAnswer);
             checkAnswer(correctAnswer);
         });
@@ -119,20 +104,33 @@ var nextQuestion = function () {
     //debugger;
     questionNumber++;
     console.log("Next question: ", questionNumber);
+
     newQuestion();
 }
 
 function timerCountdown() {
-setInterval(secondDecrease, 1000);
-function secondDecrease() {
-time--;
-console.log(time);
-}
+    setInterval(secondDecrease, 1000);
+    function secondDecrease() {
+        time--;
+        document.getElementById("time-remaining").innerHTML = time;
+    }
 }
 
 function endQuiz() {
-score = time;
-clearInterval(secondDecrease);
+    clearInterval(secondDecrease);
+    score = time;
+    localStorage.setItem("newScore", score);
+    window.alert(score);
+    return window.location.assign("/high-scores.html");
 }
 
 quizStartButton.addEventListener("click", startQuiz);
+
+const playerInitials = document.getElementById("initials");
+const saveScoreButton = document.getElementById("saveScore");
+playerInitials.addEventListener("keyup", function() {
+    saveScoreButton.disabled = !playerInitials.nodeValue;
+})
+function saveScore() {
+    event.preventDefault();
+}

@@ -83,10 +83,11 @@ h1 {
     cursor: pointer;
 }
 
-.question {
-/* PROPERTIES FOR DYNAMIC QUESTION ELEMENT?? */
-}
-
-.choices {
-  /* PROPERTIES FOR DYNAMIC CHOICE ELEMENTS?? */  
+form {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 1.5rem;
+    font-size: 1.8rem;
 }
