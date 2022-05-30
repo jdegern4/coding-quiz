@@ -1,5 +1,6 @@
 const quizStartButton = document.getElementById("start-quiz");
-var timer = 60;
+var time = 60;
+var timer = document.getElementById("time-remaining");
 var score = 100;
 var questionNumber = 0;
 var questionSequence = [];
@@ -71,34 +72,49 @@ var newQuestion = function () {
     var choice2 = document.getElementById("answer-box-2");
     var choice3 = document.getElementById("answer-box-3");
     var choice4 = document.getElementById("answer-box-4");
-    choice1.innerHTML = currentQuestion.ans1;
-    choice2.innerHTML = currentQuestion.ans2;
-    choice3.innerHTML = currentQuestion.ans3;
-    choice4.innerHTML = currentQuestion.ans4;
+    choice1.textContent = currentQuestion.ans1;
+    choice2.textContent = currentQuestion.ans2;
+    choice3.textContent = currentQuestion.ans3;
+    choice4.textContent = currentQuestion.ans4;
 
     var correctAnswer = currentQuestion.correct;
-
+    var selectedAnswer = 0;
     // DETECT THAT AN ANSWER HAS BEEN SELECTED
-    var selectedAnswer = document.querySelectorAll('.answer-box');
-    selectedAnswer.forEach(function (select) {
-        select.addEventListener('click', checkAnswer()) {
+    var answers = document.querySelectorAll('.answer-box');
+    answers.forEach(function (select) {
+        select.addEventListener('click', (e) => {
+            selectedAnswer = event.target.getAttribute("data-number");
+            console.log(selectedAnswer);
             checkAnswer();
+        });
+    });
+
+    function checkAnswer() {
+        console.log("Time to check the answer!");
+        // ALERT WRONG ANSWER AND DEDUCT TIME FROM TIMER
+        if (selectedAnswer !== currentQuestion["correct"]) {
+            window.alert("Incorrect. Try again!");
+            time = time - 5;
+            return;
+        } else if (selectedAnswer == currentQuestion["correct"]) {
+            window.alert("Correct!");
+            // ADD POINTS
+            nextQuestion();
         }
-    }
-};
 
-
-function checkAnswer() {
-    console.log("Time to check the answer!");
-
+        // OTHERWISE, IF CORRECT ANSWER SELECTED, ADD POINTS AND ALERT
+    };
 }
-
 // UPON CORRECT ANSWER AND CORRECT ALERT, LOAD NEXT QUESTION
 // nextQuestion();
 
 var nextQuestion = function () {
     questionNumber++;
     console.log(questionNumber);
+}
+
+function timer() {
+
 }
 
 quizStartButton.addEventListener("click", startQuiz);

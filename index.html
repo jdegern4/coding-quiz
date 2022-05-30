@@ -9,17 +9,24 @@
         <link rel="stylesheet" href="./assets/stylesheets/style.css">
     </head>
     <body>
-       <div class="container">
+       <header class="infobar">
+        <a id="high-scores" href="./high-scores.html">High Scores</a>
+        <div id="timer">
+            Time Remaining: 
+            <span id="time-remaining"></span>
+        </div>
+       </header>
+        <div class="container">
            <!-- CHECK FOR USE OF FLEX-CENTER AND FLEX-COLUMN CLASSES -->
            <div id="title-screen" class="flex-center flex-column">
                <h1>Coding Quiz</h1>
-               <button id="start-quiz" class="button">Start Quiz</button>
+               <button id="start-quiz">Start Quiz</button>
                <p id="question-box"></p>
-               <p id="answer-box-1" class="answer-box" data-number="1"></p>
-               <p id="answer-box-2" class="answer-box" data-number="2"></p>
-               <p id="answer-box-3" class="answer-box" data-number="3"></p>
-               <p id="answer-box-4" class="answer-box" data-number="4"></p>
-               <a id="high-scores" href="./high-scores.html">High Scores</a>
+               <button id="answer-box-1" class="answer-box" data-number="1"></button>
+               <button id="answer-box-2" class="answer-box" data-number="2"></button>
+               <button id="answer-box-3" class="answer-box" data-number="3"></button>
+               <button id="answer-box-4" class="answer-box" data-number="4"></button>
+               
            </div>
        </div>
         
