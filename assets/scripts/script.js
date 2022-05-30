@@ -114,7 +114,7 @@ var newQuestion = function () {
 
 var nextQuestion = function () {
     ++questionNumber;
-    console.log(questionNumber);
+    console.log("Next question: ", questionNumber);
     newQuestion();
 }
 
